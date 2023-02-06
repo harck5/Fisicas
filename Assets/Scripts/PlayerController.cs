@@ -35,9 +35,16 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy") && hasPowerup)
         {
+
             Rigidbody enemyRigidbody = other.gameObject.GetComponent<Rigidbody>();
+            StartCoroutine(PowerupCountDown());
             Vector3 awayFromPlayer = (other.gameObject.transform.position - transform.position).normalized;
             enemyRigidbody.AddForce(awayFromPlayer * powerupForce, ForceMode.Impulse);
         }
+    }
+    private IEnumerator PowerupCountDown()
+    {
+        yield return new WaitForSeconds(6);
+        hasPowerup = false;
     }
 }
