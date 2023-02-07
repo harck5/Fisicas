@@ -19,6 +19,9 @@ public class Enemy : MonoBehaviour
     {//            pera persecución      primero destino y luego origen
         Vector3 direction = (player.transform.position - transform.position).normalized;
         _rigidbody.AddForce(direction * speed);
-
+        if (transform.position.y < -10)
+        {
+            Destroy(gameObject);
+        }
     }
 }

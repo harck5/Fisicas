@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rigidbody;
     public bool hasPowerup;
     private float powerupForce = 15f;
+    public GameObject[]powerupIndicators;
 
 
     private GameObject FocalPoint;
@@ -46,5 +47,15 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(6);
         hasPowerup = false;
+        
+    }
+    private IEnumerator PowerupContdown()
+    {
+        for (int i = 0; i < powerupIndicators.Length; i++)
+        {
+            powerupIndicators[i].SetActive(true);
+            yield return new WaitForSeconds(2);
+            powerupIndicators[i].SetActive(false);
+        }
     }
 }
