@@ -9,12 +9,11 @@ public class SpawnManager : MonoBehaviour
 
     public int enemiesInScene;
     public int enemiesPerWave = 1;
-    public GameObject powerupPrefab;
+    public GameObject[] powerupPrefabs;
 
     void Start()
     {
         SpawnEnemyWave(enemiesPerWave);
-        Instantiate(powerupPrefab, RandomSpawnPosition(),Quaternion.identity);
 
     }
     void Update()
@@ -23,8 +22,9 @@ public class SpawnManager : MonoBehaviour
         enemiesInScene = FindObjectsOfType<Enemy>().Length;
         if (enemiesInScene <= 0)
         {
-            SpawnEnemyWave(enemiesPerWave++);
-            Instantiate(powerupPrefab, RandomSpawnPosition(), Quaternion.identity);
+            enemiesPerWave++;
+            SpawnEnemyWave(enemiesPerWave);
+
         }
     }
     private Vector3 RandomSpawnPosition()
@@ -35,6 +35,8 @@ public class SpawnManager : MonoBehaviour
     }
     private void SpawnEnemyWave(int enemiesToSpawn)
     {
+        int randomIndex = Random.Range(0, powerupPrefabs.Length);
+        Instantiate(powerupPrefabs[randomIndex], RandomSpawnPosition(), Quaternion.identity);
         for (int i = 0; i < enemiesToSpawn; i++)
         {
             Instantiate(enemyPrefab, RandomSpawnPosition(), Quaternion.identity);
